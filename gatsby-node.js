@@ -41,7 +41,7 @@ exports.onPostBuild = async ({ graphql, pathPrefix }, pluginOptions) => {
     allPagePaths.filter(path => options.excludePaths.indexOf(path) === -1).forEach(path => {
         const filePath = path + (path.indexOf(".html") === -1 ? "index.html" : "");
 
-        const fileContent = fs.readFileSync(`${options.buildDir}${filePath}`).toString("utf8");
+        const fileContent = fs.readFileSync(`${options.buildDir}/${filePath}`).toString("utf8");
         const pageDOM = cheerio.load(fileContent, {
             // use xmlMode to read the content in <noscript> tags
             // otherwise you cannot access them
