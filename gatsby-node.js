@@ -38,8 +38,9 @@ exports.onPostBuild = async ({ graphql, pathPrefix }, pluginOptions) => {
     let imagesCount = 0;
     let urlData = [];
 
-    allPagePaths.filter(path => options.excludePaths.indexOf(path) === -1).forEach(path => {
-        const filePath = `${path}/index.html`
+    allPagePaths.filter(path => !options.excludePaths.includes(path)).forEach(path => {
+        
+        let filePath = path.endsWith('/') ? `${path}index.html` : `${path}/index.html`
 
         const fileContent = fs.readFileSync(`${options.buildDir}/${filePath}`).toString("utf8");
         const pageDOM = cheerio.load(fileContent, {
